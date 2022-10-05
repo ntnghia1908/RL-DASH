@@ -1,0 +1,66 @@
+program: main.py
+method: bayes
+metric:
+  goal: maximize
+  name: test_rew_mean
+parameters:
+  dqn_lr:
+    distribution: uniform
+    min: 0.00001
+    max: 0.001
+  dqn_buffer_size:
+    distribution: int_uniform
+    min: 590
+    max: 11800
+  dqn_batch_size:
+    distribution: int_uniform
+    min: 59
+    max: 590
+  dqn_learning_starts:
+    distribution: int_uniform
+    min: 295
+    max: 2360
+  dqn_gamma:
+    values: [0.99, 1.0]
+  dqn_tau:
+    values: [0.99, 1.0]
+  dqn_train_freq:
+    distribution: int_uniform
+    min: 30
+    max: 120
+  dqn_grad_steps:
+    distribution: int_uniform
+    min: -1
+    max: 59
+  dqn_target_update_interval:
+    distribution: int_uniform
+    min: 30
+    max: 200
+  dqn_exploration_fraction:
+    distribution: uniform
+    min: 0.2
+    max: 0.6
+  features_dim:
+    values: [ 128, 256, 512 ]
+  policy_net_arch_units:
+    values: [ 64, 128, 256, 512 ]
+  policy_net_arch_layers:
+    values: [ 1, 2, 3, 4 ]
+  value_net_arch_units:
+    values: [ 64, 128, 256, 512 ]
+  value_net_arch_layers:
+    values: [ 1, 2, 3, 4 ]
+  act_func:
+    values: [ "tanh", "relu" ]
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--algorithms"
+  - "DQN"
+  - "--other_algorithms"
+  - ""
+  - "--use_wandb"
+  - "true"
+  - ${args}
